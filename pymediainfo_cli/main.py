@@ -81,9 +81,7 @@ def main(
         media_info = MediaInfo.parse(file_path, parse_speed=parse_speed)
 
         if any([general, video, audio, text, image, other, menu]):
-            validate_tracks(
-                media_info, general, video, audio, text, image, other, menu
-            )
+            validate_tracks(media_info, general, video, audio, text, image, other, menu)
 
         if output_format == "json":
             output = json.dumps(media_info.to_data())
