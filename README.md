@@ -3,6 +3,7 @@
 ![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)
 ![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)
 ![Test](https://github.com/GuiEpi/pymediainfo-cli/actions/workflows/python-ci.yml/badge.svg)
+[![codecov](https://codecov.io/gh/GuiEpi/pymediainfo-cli/graph/badge.svg?token=9EK12X8FX9)](https://codecov.io/gh/GuiEpi/pymediainfo-cli)
 
 This is a command-line interface (CLI) for the PyMediaInfo library, which provides a way to extract metadata from media files.
 

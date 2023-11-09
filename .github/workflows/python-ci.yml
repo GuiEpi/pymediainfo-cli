@@ -71,8 +71,6 @@ jobs:
           poetry-version: ${{ matrix.poetry-version }}
       - name: Install dependencies
         run: poetry install
-      - name: Build package
-        run: poetry build
       - name: Config PyPI token
         run: poetry config pypi-token.pypi ${{ secrets.PYPI_API_TOKEN }}
       - name: Publish package
