@@ -8,7 +8,11 @@ from rich.console import Console
 app = typer.Typer()
 
 console = Console()
-err_console = Console(stderr=True)
+err_console = Console(stderr=True, style="bold white on red")
+
+
+class TrackValidationError(Exception):
+    pass
 
 
 def validate_tracks(media_info, general, video, audio, text, image, other, menu):
@@ -26,7 +30,7 @@ def validate_tracks(media_info, general, video, audio, text, image, other, menu)
         if flag and not any(
             track.track_type == track_type for track in media_info.tracks
         ):
-            raise Exception(f"No {track_type.lower()} tracks found in file.")
+            raise TrackValidationError(f"No {track_type.lower()} tracks found in file.")
 
 
 def complete_output_format():
@@ -76,6 +80,9 @@ def main(
     ] = None,
 ):
     try:
+        if not 0 <= parse_speed <= 1:
+            raise ValueError("Parse speed must be between 0 and 1.")
+
         media_info = MediaInfo.parse(file_path, parse_speed=parse_speed)
 
         if any([general, video, audio, text, image, other, menu]):
@@ -104,10 +111,14 @@ def main(
                         table.add_row(key, str(value))
             output = table
 
+        if output_file and output_format != "json":
+            console.print(output)
+            raise ValueError("Output file can only be specified for JSON output.")
+
         if output_file:
             with open(output_file, "w", encoding="utf-8") as f:
                 f.write(output)
-                typer.echo(f"Output written to {output_file}")
+            typer.echo(f"Output written to {output_file}")
         else:
             if output_format == "json":
                 console.print_json(output)
@@ -115,18 +126,14 @@ def main(
                 console.print(output)
 
     except FileNotFoundError:
-        typer.echo(
-            typer.style(
-                "Error: The file was not found. Please check the path.",
-                fg=typer.colors.WHITE,
-                bg=typer.colors.RED,
-            ),
-            err=True,
-        )
+        err_console.print(f"Error: The file was not found. Please check the path.")
+        raise typer.Exit(code=1)
+    except ValueError as e:
+        err_console.print(f"Error: {e}")
+        raise typer.Exit(code=1)
+    except TrackValidationError as e:
+        err_console.print(f"Error: {e}")
         raise typer.Exit(code=1)
     except Exception as e:
-        typer.echo(
-            typer.style(f"Error: {e}", fg=typer.colors.WHITE, bg=typer.colors.RED),
-            err=True,
-        )
+        err_console.print(f"Error: {e}")
         raise typer.Exit(code=1)
