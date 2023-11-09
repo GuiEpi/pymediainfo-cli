@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "pymediainfo-cli"
+version = "0.1.0"
+description = "CLI version of the pymediainfo package"
+authors = ["Guillaume Coussot <guillaume.coussot@gmail.com>"]
+readme = "README.md"
+license = "MIT"
+repository = "https://github.com/GuiEpi/pymediainfo-cli"
+keywords = ["cli", "mediainfo"]
+
+[tool.poetry.scripts]
+pymediainfo-cli = "pymediainfo_cli.main:app"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+typer = {extras = ["all"], version = "^0.9.0"}
+pymediainfo = "^6.1.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.3"
+pytest-mock = "*"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
