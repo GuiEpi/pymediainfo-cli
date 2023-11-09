@@ -46,7 +46,7 @@ def main(
             shell_complete=complete_output_format,
             help="Output format (table, json)",
         ),
-    ] = "text",
+    ] = "table",
     general: Annotated[
         bool, typer.Option("--general", "-g", help="Include General tracks")
     ] = False,
