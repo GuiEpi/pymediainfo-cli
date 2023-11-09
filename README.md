@@ -50,15 +50,29 @@ More information with:
 pymediainfo-cli --help
 ```
 
-## Testing
-You can run the unit tests for this CLI using the `pytest`:
+## Contributing
+Contributions are welcome! Please feel free to submit a pull request.
+> I use Poetry to mange dependancies see: https://python-poetry.org/
+
+#### Clone the repo
+```bash
+git clone https://github.com/GuiEpi/pymediainfo-cli.git
+```
+#### Install dependancies 
 ```bash
 poetry install
+```
+#### Run
+```bash
+poetry run pymediainfo-cli --help
+```
+#### Testing
+```bash
 poetry run pytest tests/test.py
 ```
 
-## Contributing
-Contributions are welcome! Please feel free to submit a pull request.
-
 ## License
 This project is licensed under the MIT License.
+
+## Credits
+This project was inspired by [pymediainfo](https://pypi.org/project/pymediainfo/).
