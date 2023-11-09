@@ -12,8 +12,6 @@ err_console = Console(stderr=True)
 
 
 def validate_tracks(media_info, general, video, audio, text, image, other, menu):
-    valid = True
-    errors = []
     track_types = {
         "General": general,
         "Video": video,
